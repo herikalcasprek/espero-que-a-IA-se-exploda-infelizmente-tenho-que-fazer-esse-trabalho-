@@ -60,3 +60,21 @@ function mostraAlternativas() {
     caixaAlternativas.appendChild(botaoAlternativas);
   }
 }
+botao.addEventListener("click", () => respostaSelecionada(opcao));
+function respostaSelecionada(opcaoSelecionada) {
+  const afirmacoes = opcaoSelecionada.afirmacoes;
+  historiaFinal += afirmacoes + " ";
+  atual++;
+  mostraPergunta();
+}function mostraResultado() {
+  caixaPerguntas.textContent = "Em 2049...";
+  textoResultado.textContent = historiaFinal;
+  caixaAlternativas.textContent = "";
+}
+let historiaFinal = "";
+function respostaSelecionada(opcaoSelecionada) {
+  const afirmacao = opcaoSelecionada.afirmacao;
+  historiaFinal += afirmacao + " ";
+  atual++;
+  mostraPergunta();
+}
