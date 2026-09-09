@@ -1,29 +1,115 @@
 
 :root {
-  --cor-fundo: #01080E;
-  --cor-principal: #0B0D20;
-  --cor-secundaria: #212333;
-  --cor-destaque: #2BDEFD;
-  --cor-texto: #D7F9FF;
+--cor-fundo: #01080E;
+--cor-principal: #0B0D20;
+--cor-secundaria: #212333;
+--cor-destaque: #2BDEFD;
+--cor-texto: #D7F9FF;
 }
+
+{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
 body {
-  background-color: var(--cor-fundo);
-  color: var(--cor-texto);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+background-color: var(--cor-fundo);
+color: var(--cor-texto);
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+min-height: 100vh;
+padding: 20px;
+
+font-family: Arial, Helvetica, sans-serif;
 }
+
 .caixa-principal {
-  background-color: var(--cor-principal);
-  width: 90%;
-  text-align: center;
-  padding: 20px;
+background-color: var(--cor-principal);
+
+width: 90%;
+max-width: 800px;
+
+text-align: center;
+
+padding: 30px;
+border-radius: 15px;
+
+box-shadow: 0 0 20px rgba(43, 222, 253, 0.15);
 }
+
 h1 {
-  color: var(--cor-destaque);
+color: var(--cor-destaque);
+
+margin-bottom: 30px;
+
+font-size: 2rem;
 }
-button:hover {
-  background-color: var(--cor-destaque);
-  color: var(--cor-secundaria);
+
+.caixa-perguntas {
+font-size: 1.2rem;
+line-height: 1.6;
+
+margin-bottom: 25px;
+}
+
+.caixa-alternativas {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+.caixa-alternativas button {
+background-color: var(--cor-secundaria);
+color: var(--cor-texto);
+
+border: 2px solid transparent;
+border-radius: 8px;
+
+padding: 15px;
+
+font-size: 1rem;
+cursor: pointer;
+
+transition: 0.3s;
+}
+
+.caixa-alternativas button:hover {
+background-color: var(--cor-destaque);
+color: var(--cor-secundaria);
+
+border-color: var(--cor-destaque);
+}
+
+.caixa-resultado {
+margin-top: 30px;
+}
+
+.texto-resultado {
+color: var(--cor-texto);
+
+font-size: 1.1rem;
+line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+.caixa-principal {
+width: 100%;
+padding: 20px;
+}
+
+h1 {
+font-size: 1.5rem;
+}
+
+.caixa-perguntas {
+font-size: 1rem;
+}
+
+.caixa-alternativas button {
+font-size: 0.95rem;
+}
 }
