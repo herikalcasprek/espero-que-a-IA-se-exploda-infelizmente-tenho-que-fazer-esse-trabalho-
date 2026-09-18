@@ -60,12 +60,14 @@ const caixaPerguntas = document.querySelector(".caixa-perguntas");
 const caixaAlternativas = document.querySelector(".caixa-alternativas");
 const caixaResultado = document.querySelector(".caixa-resultado");
 const textoResultado = document.querySelector(".texto-resultado");
+const botaoIniciar = document.querySelector("#botao-iniciar");
 
 let atual = 0;
 let historiaFinal = "";
 
 function mostraPergunta() {
   caixaPerguntas.textContent = perguntas[atual].enunciado;
+
   caixaAlternativas.textContent = "";
 
   perguntas[atual].alternativas.forEach((alternativa) => {
@@ -90,9 +92,15 @@ function mostraPergunta() {
 
 function mostraResultado() {
   caixaPerguntas.textContent = "O futuro da IA foi decidido...";
+
   textoResultado.textContent = historiaFinal;
+
   caixaAlternativas.textContent = "";
+
   caixaResultado.textContent = "Obrigado por participar!";
 }
 
-mostraPergunta();
+botaoIniciar.addEventListener("click", () => {
+  botaoIniciar.style.display = "none";
+  mostraPergunta();
+});
