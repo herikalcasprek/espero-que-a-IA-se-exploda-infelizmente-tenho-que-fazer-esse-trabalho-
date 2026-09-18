@@ -55,8 +55,44 @@ const perguntas = [
     ]
   }
 ];
+
+const caixaPerguntas = document.querySelector(".caixa-perguntas");
+const caixaAlternativas = document.querySelector(".caixa-alternativas");
+const caixaResultado = document.querySelector(".caixa-resultado");
+const textoResultado = document.querySelector(".texto-resultado");
+
+let atual = 0;
+let historiaFinal = "";
+
+function mostraPergunta() {
+  caixaPerguntas.textContent = perguntas[atual].enunciado;
+  caixaAlternativas.textContent = "";
+
+  perguntas[atual].alternativas.forEach((alternativa) => {
+    const botao = document.createElement("button");
+
+    botao.textContent = alternativa.texto;
+
+    botao.addEventListener("click", () => {
+      historiaFinal += alternativa.afirmacao + " ";
+      atual++;
+
+      if (atual < perguntas.length) {
+        mostraPergunta();
+      } else {
+        mostraResultado();
+      }
+    });
+
+    caixaAlternativas.appendChild(botao);
+  });
+}
+
 function mostraResultado() {
   caixaPerguntas.textContent = "O futuro da IA foi decidido...";
   textoResultado.textContent = historiaFinal;
   caixaAlternativas.textContent = "";
+  caixaResultado.textContent = "Obrigado por participar!";
 }
+
+mostraPergunta();
