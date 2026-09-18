@@ -1,106 +1,113 @@
+const caixaPrincipal = document.querySelector(".caixa-principal");
+const caixaPerguntas = document.querySelector(".caixa-perguntas");
+const caixaAlternativas = document.querySelector(".caixa-alternativas");
+const caixaResultado = document.querySelector(".caixa-resultado");
+const textoResultado = document.querySelector(".texto-resultado");
+
 const perguntas = [
   {
-    enunciado: "Uma IA extremamente poderosa acaba de ser criada. Você recebeu a chance de decidir qual será o futuro dela. Qual será sua primeira escolha?",
+    enunciado: "Em 2026, uma nova inteligência artificial muito poderosa é criada. O que você decide fazer com ela?",
     alternativas: [
       {
-        texto: "Usar a IA para construir um futuro melhor",
-        afirmacao: "Você escolheu colocar a inteligência artificial a serviço da humanidade, buscando criar um futuro mais justo e seguro."
+        texto: "Usá-la para ajudar a humanidade",
+        afirmacao: "Você decidiu usar a inteligência artificial para ajudar a humanidade."
       },
       {
-        texto: "Dar à IA liberdade para escolher seu próprio caminho",
-        afirmacao: "Você decidiu dar mais autonomia à inteligência artificial e deixou que ela começasse a escolher seu próprio futuro."
+        texto: "Deixar a IA tomar suas próprias decisões",
+        afirmacao: "Você permitiu que a inteligência artificial tivesse mais liberdade para tomar decisões."
       }
     ]
   },
 
   {
-    enunciado: "A IA descobriu maneiras de resolver grandes problemas do planeta. Agora, você precisa decidir como esse poder será usado.",
+    enunciado: "A IA começa a resolver problemas ambientais. Qual será sua próxima decisão?",
     alternativas: [
       {
-        texto: "Usar a IA para proteger o planeta",
-        afirmacao: "Você escolheu usar o poder da IA para combater as mudanças climáticas e construir um futuro mais sustentável."
+        texto: "Usar a IA para combater as mudanças climáticas",
+        afirmacao: "A IA passou a trabalhar na criação de soluções para proteger o planeta."
       },
       {
-        texto: "Usar a IA para acelerar o crescimento econômico",
-        afirmacao: "Você decidiu priorizar o crescimento econômico, fazendo com que a IA fosse usada principalmente para aumentar a produção e os lucros."
+        texto: "Usar a IA principalmente para aumentar os lucros",
+        afirmacao: "As empresas passaram a usar a IA principalmente para aumentar seus lucros."
       }
     ]
   },
 
   {
-    enunciado: "Em 2040, a IA está presente em quase todos os aspectos da sociedade. Quem deve decidir quais são os limites desse poder?",
+    enunciado: "Em 2040, a inteligência artificial já faz parte da vida de quase todas as pessoas. O que você fará?",
     alternativas: [
       {
-        texto: "A humanidade deve criar regras para a IA",
-        afirmacao: "Você escolheu estabelecer limites para a inteligência artificial, garantindo que seu poder continuasse sob responsabilidade humana."
+        texto: "Defender regras para controlar o uso da IA",
+        afirmacao: "Você ajudou a criar regras para garantir que a IA fosse usada de maneira responsável."
       },
       {
-        texto: "A IA e as empresas devem decidir seus próprios limites",
-        afirmacao: "Você decidiu deixar empresas e inteligências artificiais com mais liberdade para definir como esse poder seria utilizado."
+        texto: "Deixar as empresas decidirem como usar a IA",
+        afirmacao: "As empresas ganharam grande liberdade para decidir como utilizar a inteligência artificial."
       }
     ]
   },
 
   {
-    enunciado: "A IA alcançou um nível capaz de transformar completamente a humanidade. Agora, sua última escolha pode definir o futuro de todos.",
+    enunciado: "A IA agora consegue criar novas tecnologias. Qual caminho você escolhe?",
     alternativas: [
       {
-        texto: "Usar a IA para melhorar a vida de todos",
-        afirmacao: "Você escolheu um futuro em que a inteligência artificial trabalha ao lado da humanidade para melhorar a vida das pessoas."
+        texto: "Criar tecnologias para melhorar a vida das pessoas",
+        afirmacao: "A humanidade passou a utilizar a IA para desenvolver tecnologias que melhoraram a qualidade de vida."
       },
       {
-        texto: "Criar uma IA cada vez mais poderosa, sem saber o resultado",
-        afirmacao: "Você escolheu avançar sem conhecer todas as consequências, criando uma inteligência artificial cada vez mais poderosa e imprevisível."
+        texto: "Criar tecnologias cada vez mais poderosas",
+        afirmacao: "A humanidade criou sistemas de inteligência artificial cada vez mais poderosos, sem saber exatamente quais seriam as consequências."
       }
     ]
   }
 ];
 
-const caixaPerguntas = document.querySelector(".caixa-perguntas");
-const caixaAlternativas = document.querySelector(".caixa-alternativas");
-const caixaResultado = document.querySelector(".caixa-resultado");
-const textoResultado = document.querySelector(".texto-resultado");
-const botaoIniciar = document.querySelector("#botao-iniciar");
-
 let atual = 0;
+let perguntaAtual;
 let historiaFinal = "";
 
 function mostraPergunta() {
-  caixaPerguntas.textContent = perguntas[atual].enunciado;
+  if (atual >= perguntas.length) {
+    mostraResultado();
+    return;
+  }
 
+  perguntaAtual = perguntas[atual];
+
+  caixaPerguntas.textContent = perguntaAtual.enunciado;
   caixaAlternativas.textContent = "";
 
-  perguntas[atual].alternativas.forEach((alternativa) => {
-    const botao = document.createElement("button");
+  mostraAlternativas();
+}
 
-    botao.textContent = alternativa.texto;
+function mostraAlternativas() {
+  for (const alternativa of perguntaAtual.alternativas) {
+    const botaoAlternativas = document.createElement("button");
 
-    botao.addEventListener("click", () => {
-      historiaFinal += alternativa.afirmacao + " ";
-      atual++;
+    botaoAlternativas.textContent = alternativa.texto;
 
-      if (atual < perguntas.length) {
-        mostraPergunta();
-      } else {
-        mostraResultado();
-      }
+    botaoAlternativas.addEventListener("click", () => {
+      respostaSelecionada(alternativa);
     });
 
-    caixaAlternativas.appendChild(botao);
-  });
+    caixaAlternativas.appendChild(botaoAlternativas);
+  }
+}
+
+function respostaSelecionada(opcaoSelecionada) {
+  const afirmacao = opcaoSelecionada.afirmacao;
+
+  historiaFinal += afirmacao + " ";
+
+  atual++;
+
+  mostraPergunta();
 }
 
 function mostraResultado() {
-  caixaPerguntas.textContent = "O futuro da IA foi decidido...";
-
+  caixaPerguntas.textContent = "Em 2049...";
   textoResultado.textContent = historiaFinal;
-
   caixaAlternativas.textContent = "";
-
-  caixaResultado.textContent = "Obrigado por participar!";
 }
 
-botaoIniciar.addEventListener("click", () => {
-  botaoIniciar.style.display = "none";
-  mostraPergunta();
-});
+mostraPergunta();
